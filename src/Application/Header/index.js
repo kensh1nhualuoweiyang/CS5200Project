@@ -6,14 +6,14 @@ function Header() {
     const { pathname } = useLocation();
     const subNav = ["Rock", "Pop", "R&B/Hip-Hop", "Latin","Country" ,"Classical", "EDM","Jazz"]
     return (
-        <div className="wd-header-body">
+        <div className="wd-header-body fixed-top">
             <div className="wd-header-content mt-2">
                 <div className="d-flex wd-header-nav">
                     <img src={logoImg} alt="Logo" ></img>
                     <nav className="ms-3 navbar navbar-expand-lg">
                         <ul className="navbar-nav">
                             {link.map((item) => (
-                                <li className="nav-item">
+                                <li className="nav-item" key={item}>
                                     <Link className={`nav-link ${decodeURIComponent(pathname).includes(item) && "active"}`} to={`./${item}`}>{item}</Link>
                                 </li>
                             ))}
@@ -30,17 +30,17 @@ function Header() {
                         </ul>
                     </nav>
                 </div>
-                <hr />
+                <hr className="mb-0"/>
+                
                 <nav className="wd-header-sub-nav navbar navbar-expand-sm">
                     <ul className="navbar-nav">
                         {
                             subNav.map((item) => (
-                                <li className="nav-item">
+                                <li className="nav-item" key={item}>
                                     <Link className="nav-link me-2" to={`./Genre/${item}`}>{item}</Link>
                                 </li>   
                             ))
                         }
-                        
                     </ul>
                 </nav>
             </div>
