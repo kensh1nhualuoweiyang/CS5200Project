@@ -11,7 +11,6 @@ function App() {
           <Route path="/Application/*" element = {<Application/>}/>
         </Routes>
       </div>
-    
     </HashRouter>
     
   );
