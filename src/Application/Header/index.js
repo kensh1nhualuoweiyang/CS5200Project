@@ -1,8 +1,6 @@
-import Login from "../Login";
-import Register from "../Register";
 import "./index.css"
 import logoImg from "./logo.png"
-import { Link, Route, useLocation, Routes } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 function Header() {
     const link = ["Home", "Profile"]
     const { pathname } = useLocation();

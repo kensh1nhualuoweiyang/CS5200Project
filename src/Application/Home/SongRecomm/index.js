@@ -15,7 +15,7 @@ function SongRecomm() {
                     <h4 className="mt-4 mb-3">Top Songs</h4>
                     {
                         Array.from({ length: 3 }).map((item, index) => (
-                            <div className={`wd-song-recomm-item carousel-item ${index == 0 && "active"}`}>
+                            <div className={`wd-song-recomm-item carousel-item ${index === 0 && "active"}`}>
                                 <div className="container">
                                     <div className="row justify-content-center">
                                         <div className="col-md-10">
