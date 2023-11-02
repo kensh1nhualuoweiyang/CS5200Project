@@ -1,0 +1,36 @@
+.wd-genre-rec {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(241, 241, 241);
+    height: 100vh;
+}
+
+.wd-genre-rec table {
+    width: 800px;
+}
+
+.wd-genre-rec table tr {
+    text-align: center;
+}
+
+.wd-genre-rec table td {
+    vertical-align: middle; /* Center text vertically */
+    white-space: nowrap;
+}
+
+.wd-genre-rec table td a {
+    text-decoration: none;
+    color: rgb(51, 50, 50);
+}
+
+.wd-genre-rec table td a:hover {
+    text-decoration: underline;
+    color: #31c27c;
+}
+
+.wd-genre-rank {
+    font-weight: 550;
+}
