@@ -19,7 +19,7 @@ function Application(){
                 <Route path="Login" element={<Login/>}/>
                 <Route path="Song/:sID/*" element={<SongDetail />} />
                 <Route path="Playlist/:pID/*" element={<Playlist />} />
-                <Route path="Profile/:uID/*" element={<Profile/>}/>
+                <Route path="Profile/:uID/:page/*" element={<Profile/>}/>
                 <Route path="Genre/:gName/*" element={<GenreRec/>}/>
             </Routes>
         </div>

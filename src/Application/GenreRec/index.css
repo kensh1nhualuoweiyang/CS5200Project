@@ -1,11 +1,11 @@
 .wd-genre-rec {
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
+    margin-top: 200px;
     justify-content: center;
     align-items: center;
     background-color: rgb(241, 241, 241);
-    height: 100vh;
+
 }
 
 .wd-genre-rec table {
@@ -33,4 +33,9 @@
 
 .wd-genre-rank {
     font-weight: 550;
+}
+
+.wd-genre-rec-song-cover{
+    height: 100px;
+    width: 100px;
 }

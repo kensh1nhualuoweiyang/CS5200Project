@@ -2,9 +2,8 @@ import "./index.css"
 import logoImg from "./logo.png"
 import { Link, useLocation } from "react-router-dom"
 function Header() {
-    const link = ["Home", "Profile"]
     const { pathname } = useLocation();
-    const subNav = ["Rock", "Pop", "R&B/Hip-Hop", "Latin", "Country", "Classical", "EDM", "Jazz"]
+    const subNav = ["Rock", "Pop", "R&B Hip-Hop", "Latin", "Country", "Classical", "EDM", "Jazz"]
     return (
         <>
             <div className="wd-header-body fixed-top">
@@ -13,11 +12,14 @@ function Header() {
                         <img src={logoImg} alt="Logo" ></img>
                         <nav className="ms-3 navbar navbar-expand-lg">
                             <ul className="navbar-nav">
-                                {link.map((item) => (
-                                    <li className="nav-item" key={item}>
-                                        <Link className={`nav-link ${decodeURIComponent(pathname).includes(item) && "active"}`} to={`./${item}`}>{item}</Link>
-                                    </li>
-                                ))}
+                                <li className="nav-item" key="home">
+                                    <Link className={`nav-link ${decodeURIComponent(pathname).includes("home") && "active"}`} to={"./home"}>Home</Link>
+                                </li>
+                               {/**TODO: Detect Current Login User */}
+                                <li className="nav-item" key="profile">
+                                    <Link className={`nav-link ${decodeURIComponent(pathname).includes("Profile") && "active"}`} to={"./Profile/123/My Songs"}>My Profile</Link>
+                                </li>
+                              
                                 <li className="nav-item ml-auto">
                                     <div className="wd-header-end d-flex">
                                         <form className="d-flex" role="search">
