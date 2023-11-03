@@ -17,7 +17,7 @@ function Header() {
                                 </li>
                                {/**TODO: Detect Current Login User */}
                                 <li className="nav-item" key="profile">
-                                    <Link className={`nav-link ${decodeURIComponent(pathname).includes("Profile") && "active"}`} to={"./Profile/123/My Songs"}>My Profile</Link>
+                                    <Link className={`nav-link ${decodeURIComponent(pathname).includes("Profile") && "active"}`} to={"./Profile/123"}>My Profile</Link>
                                 </li>
                               
                                 <li className="nav-item ml-auto">
