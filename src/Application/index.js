@@ -8,6 +8,7 @@ import Playlist from "./PlayListDetail"
 import SongDetail from "./SongDetail"
 import GenreRec from "./GenreRec"
 import SongCreator from "./SongCreator"
+import SearchResult from "./SearchResult"
 
 function Application(){
     return (
@@ -23,6 +24,7 @@ function Application(){
                 <Route path="Profile/:uID/*" element={<Profile/>}/>
                 <Route path="Genre/:gName/*" element={<GenreRec/>}/>
                 <Route path=":uID/:sID/creator" element = {<SongCreator/>}/>
+                <Route path="Search/:keyword/*" element={<SearchResult/>}/> 
             </Routes>
         </div>
     )
