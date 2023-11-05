@@ -13,8 +13,9 @@
 }
 
 .wd-playlist-slide-item {
-    align-items: center; /* Centers items vertically */
-    justify-content: center; /* Evenly spaces items with equal space around them */
+    display: flex;
+    align-items: center;
+    justify-content: center; 
     height: 100%;
 }
 
@@ -29,7 +30,7 @@
 .wd-playlist-slide-item.card-img-top { /* Target only the card images */
     height: 60%;
     width: 250px;
-    margin: 0 auto; /* Centers the image horizontally */
+    margin: 0 auto; 
     display: block;
 }
 

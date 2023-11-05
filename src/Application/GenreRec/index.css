@@ -17,7 +17,7 @@
 }
 
 .wd-genre-rec table td {
-    vertical-align: middle; /* Center text vertically */
+    vertical-align: middle; 
     white-space: nowrap;
 }
 

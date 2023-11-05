@@ -19,7 +19,7 @@ function Application(){
                 <Route path="Home/*" element = {<Home/>}/>       
                 <Route path="Register" element={<Register />} /> 
                 <Route path="Login" element={<Login/>}/>
-                <Route path="Song/:sID/*" element={<SongDetail />} />
+                <Route path="Songs/:sid/*" element={<SongDetail />} />
                 <Route path="Playlist/:pID/*" element={<Playlist />} />
                 <Route path="Profile/:uID/*" element={<Profile/>}/>
                 <Route path="Genre/:gName/*" element={<GenreRec/>}/>

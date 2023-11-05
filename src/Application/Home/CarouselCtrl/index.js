@@ -1,12 +1,15 @@
 
 
-function CarouselCtrl({id}) {
+function CarouselCtrl({ id, leng }) {
     return (
         <>
+
             <div class="carousel-indicators mt-0 mb-0">
-                <button type="button" data-bs-target={`#${id}`} data-bs-slide-to="0" class="active"></button>
-                <button type="button" data-bs-target={`#${id}`} data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target={`#${id}`} data-bs-slide-to="2" aria-label="Slide 3"></button>
+                {
+                    Array.from({ length: parseInt(leng) }).map((item, index) => (
+                        <button type="button" data-bs-target={`#${id}`} data-bs-slide-to={index} class={index === 0 && "active"}></button>
+                    ))
+                }
             </div>
             <button className="carousel-control-prev" type="button" data-bs-target={`#${id}`} data-bs-slide="prev">
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>

@@ -10,6 +10,7 @@
 
 .wd-song-create-lyrics{
     width: 300px;
+    white-space: pre-line;
 }
 
 .wd-song-create .row{
