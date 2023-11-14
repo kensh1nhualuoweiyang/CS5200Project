@@ -1,38 +1,36 @@
 import "./index.css"
 import coverImg from "./cover.jpg"
-import { Link, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CarouselCtrl from "../CarouselCtrl";
-import Playlist from "../../PlayListDetail";
+import { useEffect, useState } from "react";
+import * as client from "../../client"
+
 
 function PlaylistRecomm() {
 
-    const examplePlaylist = [
-        { title: "Playlist Name 1", view: 0, id: 1 },
-        { title: "Playlist Name 2", view: 0, id: 2 },
-        { title: "Playlist Name 3", view: 0, id: 3 },
-        { title: "Playlist Name 4", view: 0, id: 4 },
-        { title: "Playlist Name 5", view: 0, id: 5 },
-        { title: "Playlist Name 6", view: 0, id: 6 },
-        { title: "Playlist Name 7", view: 0, id: 7 },
-        { title: "Playlist Name 8", view: 0, id: 8 },
-        { title: "Playlist Name 9", view: 0, id: 9 },
-        { title: "Playlist Name 10", view: 0, id: 10 },
-        { title: "Playlist Name 11", view: 0, id: 11 },
-        { title: "Playlist Name 12", view: 0, id: 12 },
-        { title: "Playlist Name 13", view: 0, id: 13 },
-        { title: "Playlist Name 14", view: 0, id: 14 },
-        { title: "Playlist Name 15", view: 0, id: 15 },
-        { title: "Playlist Name 16", view: 0, id: 16 },
-    ]
 
+    const [slides, setSlides] = useState([]);
+    useEffect(() => {
+        const loadPlaylistRec = async () => {
+            const response = await client.getPlaylistRec();
+            const temp = await Promise.all(
+                response.map(async (item) => {
+                    const response = await client.getPlaylistDetail(item._id);
+                    return response;
+                })
+            );
 
+            const newSlides = [];
+            for (let i = 0; i < temp.length; i += 5) {
+                newSlides.push(temp.slice(i, i + 5));
+            }
+            setSlides(newSlides);
+        };
 
-    const slides = []
+        loadPlaylistRec();
+    }, []);
 
-    for (let i = 0; i < examplePlaylist.length; i += 5) {
-        slides.push(examplePlaylist.slice(i, i + 5))
-    }
-
+    const increaseView = async (pid) => { await client.increasePlaylistView(pid) }
 
     return (
         <div id="playListCarousel" className="wd-playlist-slide carousel slide" >
@@ -41,12 +39,11 @@ function PlaylistRecomm() {
                 {
                     Array.from({ length: slides.length }).map((_, slideIndex) => (
                         <div className={`wd-playlist-slide-item carousel-item ${slideIndex === 0 && 'active'}`}>
-                            {console.log(slideIndex)}
                             <div className="wd-playlist-slide-element">
 
                                 {slides[slideIndex].map((item, index) => (
-
-                                    <Link to={`/Application/Playlist/${item.id}`} className="wd-playlist-card card mx-3 mt-5">
+                                    <Link to={`/Application/Playlist/${item._id}`} className="wd-playlist-card card mx-3 mt-5"
+                                        onClick={() => increaseView(item._id)}>
                                         <img src={coverImg} className="card-img-top" />
                                         <div className="card-body py-0 px-0">
                                             <h5 className="card-title mb-0">{item.title}</h5>
@@ -56,11 +53,6 @@ function PlaylistRecomm() {
 
                                 ))}
                             </div>
-
-                            {console.log(slides[slideIndex])}
-
-
-
                         </div>
                     ))
 

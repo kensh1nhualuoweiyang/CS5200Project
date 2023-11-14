@@ -10,13 +10,15 @@ function SearchResult() {
     const resultTitle = ["Users", "Songs", "Playlists"]
     const { pathname } = useLocation()
     const {keyword} = useParams()
+    const url = pathname.split('/')
+    const currentPage = url[url.length-1]
     return (
         <div className="wd-search-result d-flex">
             <ul className="nav flex-column nav-underline">
                 {
                     resultTitle.map((item) => (
                         <li className="nav-item float-end">
-                            <Link className={`nav-link ${pathname.includes(item) && "active"}`} to={`/Application/Search/${keyword}/${item}`} >{item}</Link>
+                            <Link className={`nav-link ${currentPage===item && "active"}`} to={`/Application/Search/${keyword}/${item}`} >{item}</Link>
                         </li>
                     ))
                 }

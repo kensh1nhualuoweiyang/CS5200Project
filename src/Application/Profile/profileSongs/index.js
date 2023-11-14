@@ -2,8 +2,8 @@ import { Link, useParams } from "react-router-dom"
 import "./index.css"
 
 function ProfileSongs() {
-    const sampleSongID = ["1","2","3"];
-    const {uID} = useParams();
+    const sampleSongID = ["1", "2", "3"];
+    const { uID } = useParams();
 
     return (
         <div className="container mt-3">
@@ -27,8 +27,11 @@ function ProfileSongs() {
                                 </div>
                             </div>
                         ))
-                    )}
+                    )
+                }
+
             </div>
+            <Link to={`/Application/${uID}/${new Date().getTime().toString()}/creator`} className="float-end btn btn-primary mt-2">Create</Link>
         </div>
     );
 }
