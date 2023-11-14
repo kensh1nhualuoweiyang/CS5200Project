@@ -3,7 +3,8 @@ import "./index.css"
 import cover from "./cover.jpg"
 import { BiUserCircle } from "react-icons/bi"
 import { Link } from "react-router-dom"
-
+import { useEffect } from "react"
+import * as client from "../client"
 function SongDetail() {
     const { sid } = useParams()
     const examplePlaylist = []
@@ -16,6 +17,10 @@ function SongDetail() {
         { userId: 4, userName: "SampleUser 4 ", comment: "Test Comment 4" },
         { userId: 5, userName: "SampleUser 5 ", comment: "Test Comment 5" },
     ]
+
+    useEffect(() => {
+        const getSongDetail = async() => await client.getSongDetail(sid)
+    })
 
     return (
         <div className="wd-song-detail-holder">

@@ -1,8 +1,8 @@
 .wd-header-body {
-    height: 18vh;
+    height: 22vh;
     background-color: white;
     flex-shrink: 0;
-
+    width: 100%;
 }
 
 .wd-header-content {

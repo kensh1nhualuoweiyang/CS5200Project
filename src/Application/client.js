@@ -44,3 +44,12 @@ export const getSearchUser = async (target) =>{
     const response = await axios.get(`http://localhost:4000/api/searchUsers/${target}`)
     return response.data
 }
+
+export const getSongDetail = async (target) => {
+    const response = await axios.get(`http://localhost:4000/api/song/${target}`)
+    return response.data
+}
+
+export const getSongComments = async (target) =>{
+    
+}
