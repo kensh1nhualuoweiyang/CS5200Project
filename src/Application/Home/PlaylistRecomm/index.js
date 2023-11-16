@@ -9,26 +9,18 @@ import * as client from "../../client"
 function PlaylistRecomm() {
 
 
-    const [slides, setSlides] = useState([]);
+    const [slides, setSlides] = useState([])
     useEffect(() => {
-        const loadPlaylistRec = async () => {
+        const loadTopPlaylist = async () =>{
             const response = await client.getPlaylistRec();
-            const temp = await Promise.all(
-                response.map(async (item) => {
-                    const response = await client.getPlaylistDetail(item._id);
-                    return response;
-                })
-            );
-
-            const newSlides = [];
-            for (let i = 0; i < temp.length; i += 5) {
-                newSlides.push(temp.slice(i, i + 5));
+            const newSlides = []
+            for (let i = 0; i < response.length; i += 9) {
+                newSlides.push(response.slice(i, i + 5))
             }
-            setSlides(newSlides);
-        };
-
-        loadPlaylistRec();
-    }, []);
+            setSlides(newSlides)
+        }
+        loadTopPlaylist()
+    },[])
 
     const increaseView = async (pid) => { await client.increasePlaylistView(pid) }
 
@@ -42,13 +34,15 @@ function PlaylistRecomm() {
                             <div className="wd-playlist-slide-element">
 
                                 {slides[slideIndex].map((item, index) => (
-                                    <Link to={`/Application/Playlist/${item._id}`} className="wd-playlist-card card mx-3 mt-5"
-                                        onClick={() => increaseView(item._id)}>
+                                    
+                                    <Link to={`/Application/Playlist/${item.id}`} className="wd-playlist-card card mx-3 mt-5"
+                                        onClick={() => increaseView(item.id)}>
+                                            {console.log(slides[slideIndex])}
                                         <img src={coverImg} className="card-img-top" />
                                         <div className="card-body py-0 px-0">
-                                            <h5 className="card-title mb-0">{item.title}</h5>
+                                            <h5 className="card-title mb-0">{item.name}</h5>
                                         </div>
-                                        <p class="card-text">View: {item.view}</p>
+                                        <p class="card-text">View: {item.views}</p>
                                     </Link>
 
                                 ))}

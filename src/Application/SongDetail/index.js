@@ -3,8 +3,11 @@ import "./index.css"
 import cover from "./cover.jpg"
 import { BiUserCircle } from "react-icons/bi"
 import { Link } from "react-router-dom"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import * as client from "../client"
+import { BiLike } from "react-icons/bi";
+import { BiDislike } from "react-icons/bi";
+
 function SongDetail() {
     const { sid } = useParams()
     const examplePlaylist = []
@@ -17,20 +20,32 @@ function SongDetail() {
         { userId: 4, userName: "SampleUser 4 ", comment: "Test Comment 4" },
         { userId: 5, userName: "SampleUser 5 ", comment: "Test Comment 5" },
     ]
+    const [songDetail, setSongDetail] = useState({})
+    const [comments, setComents] = useState([])
+    const fetchSongData = async () => {
+        const response = await client.getSongDetail(sid)
+        setSongDetail(response[0])
+    }
 
+    const fetchSongComment = async () => {
+        const response = await client.getSongComments(sid)
+        setComents(response)
+    }
+    
     useEffect(() => {
-        const getSongDetail = async() => await client.getSongDetail(sid)
-    })
-
+        fetchSongData()
+        fetchSongComment()
+    }, [sid])
     return (
+
         <div className="wd-song-detail-holder">
             <div className="wd-song-detail container">
                 <div className="wd-song-detail-info d-flex pt-3">
                     <img src={cover} />
                     <div className="wd-song-info ms-5">
-                        <h4>Example Song Title</h4>
-                        <p>Example Author Name</p>
-                        <p>Likes: 0</p>
+                        <h4>{songDetail.title}</h4>
+                        <p>Uploaded By:&nbsp;&nbsp;{songDetail.userName}</p>
+                        <p>Likes: {songDetail.likes}</p>
                         <div className="btn-group">
                             <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Add to Playlist
@@ -43,45 +58,52 @@ function SongDetail() {
                                         )) :
                                         <li className="ms-3">No Playlist Found</li>
                                 }
-
                             </ul>
                         </div>
+                        <br />
+                        <button className="btn btn-transparent mt-2"><BiLike className="me-2" /></button>
                     </div>
                 </div>
                 <hr />
                 <div className="wd-song-lyrics">
                     <h4>Lycris</h4>
-
-                    Sample lyrics 1<br />
-                    Sample lyrics 10<br />
-                    Sample lyrics 100.<br />
-                    Sample lyrics 10086.<br />
-
-
+                    {songDetail.lyrics && songDetail.lyrics.split('<br/>').map((line, index) => (
+                        <p key={index}>{line}</p>
+                    ))}
                 </div>
                 <hr />
                 <div className="wd-song-comments">
                     <h4>Comments</h4>
                     <ul className="list-group">
                         {
-                            exampleComments.map((item) => (
+                            comments.map((item) => (
                                 <li className="list-group-item ">
                                     <div className="d-flex">
-                                    <BiUserCircle className="me-2" />
-                                        <Link to={`/Application/Profile/${item.userId}`} className="wd-song-comment-user">
-                                            
+                                        <BiUserCircle className="me-2" />
+                                        <Link to={`/Application/Profile/${item.userName}`} className="wd-song-comment-user">
                                             {item.userName}
                                         </Link>
+                                        <p className="wd-comment-date float-end">
+                                            {item.commentDate}
+                                        </p>
                                     </div>
 
                                     <div className="wd-song-comment-body mt-2 ms-5">
-                                        {item.comment}
+                                        {item.detail}
                                     </div>
                                 </li>
 
                             ))
                         }
                     </ul>
+                    <hr className="mb-2 mt-3" />
+                    <div className="mb-2">
+                        <label for="comment" class="form-label">Enter Comments</label>
+                        <textarea class="form-control" id="comment" rows="3"></textarea>
+                        <div className="float-end mt-2 mb-3">
+                            <button className="btn btn-primary">Post</button>
+                        </div>
+                    </div>
 
                 </div>
 

@@ -12,7 +12,7 @@ function NewSongRec() {
 
     const [slides, setSlides] = useState([])
     useEffect(() => {
-        const loadTopSongs = async () => {
+        const loadNewSongs = async () => {
             const response = await client.getNewRelease();
 
             const newSlides = []
@@ -21,7 +21,7 @@ function NewSongRec() {
             }
             setSlides(newSlides)
         }
-        loadTopSongs()
+        loadNewSongs()
     }, [])
 
     return (
@@ -43,14 +43,14 @@ function NewSongRec() {
                                                                 {
                                                                     slides[index].slice(rowIndex * 4, (rowIndex + 1) * 4).map((item) => (
                                                                         <td>
-                                                                            <Link to={`/Application/Songs/${item._id}`} className="d-flex">
+                                                                            <Link to={`/Application/Songs/${item.id}`} className="d-flex">
                                                                                 <div className="wd-new-songRec-image-container">
                                                                                     <img src={cover} alt="Cover" />
                                                                                     <AiFillPlayCircle />
                                                                                 </div>
                                                                                 <div className="ms-3">
                                                                                     <p className="wd-new-song-rec-name">{item.title}</p>
-                                                                                    <p className="wd-new-song-rec-author">{item.author}</p>
+                                                                                    <p className="wd-new-song-rec-author">{item.userName}</p>
                                                                                 </div>
                                                                             </Link>
 

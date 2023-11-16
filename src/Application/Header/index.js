@@ -6,7 +6,7 @@ function Header() {
     const { pathname } = useLocation();
     const [keyword, setKeyword] = useState("")
 
-    const subNav = ["Rock", "Pop", "R&B Hip-Hop", "Latin", "Country", "Classical", "EDM", "Jazz"]
+    const subNav = ["Rock", "Pop",  "Country", "EDM"]
     return (
         <div className="wd-header-body fixed-top">
             <div className="wd-header-content mt-2">

@@ -7,6 +7,8 @@
 }
 .wd-song-detail-holder{
     background-color: rgb(236, 236, 236);
+    display: flex;
+    flex-direction: column;
 }
 
 .wd-song-comments,
@@ -17,6 +19,11 @@
 .wd-song-comments svg{
     height: 30px;
     width: 30px;
+}
+.wd-comment-date{
+    flex:1;
+    align-items: right;
+    text-align: right;
 }
 .wd-song-comments ul li{
     background-color: transparent;

@@ -46,7 +46,7 @@ function SongRecomm() {
                                                             <tr>
                                                                 {
                                                                    slides[index].slice(rowIndex * 3,(rowIndex + 1) * 3).map((item) => (
-                                                                        <td>
+                                                                        <td className="col-3">
                                                                             <Link to={`/Application/Songs/${item._id}`} className="d-flex">
                                                                                 <div className="wd-songRec-image-container">
                                                                                     <img src={cover} alt="Cover" />

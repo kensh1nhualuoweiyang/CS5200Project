@@ -2,7 +2,6 @@ import { Link, useParams } from "react-router-dom";
 import "./index.css";
 import cover from "./cover.jpg";
 import { useState } from "react";
-import axios from "axios";
 import { useEffect } from "react";
 import * as client from "../client"
 function GenreRec() {
@@ -17,9 +16,6 @@ function GenreRec() {
     fetchData();
   }, [gName]);
 
-
-  console.log(songs);
-  
   return (
     <div className="wd-genre-rec">
       <h3 className="mt-3">Top {gName} Songs</h3>
@@ -34,13 +30,13 @@ function GenreRec() {
                 <img className="wd-genre-rec-song-cover" src={cover} alt="Song Cover" />
               </td>
               <td className="col-5">
-                <Link to={`/Application/Songs/${item._id}`} className="d-flex">
+                <Link to={`/Application/Songs/${item.id}`} className="d-flex">
                   <p className="me-5">{item.title}</p>
                 </Link>
               </td>
               <td className="col-3">
-                <Link to={`/Application/Profile/${item.aid}`}>
-                  <p className="ms-2">{item.author}</p>
+                <Link to={`/Application/Profile/${item.userName}`}>
+                  <p className="ms-2">{item.userName}</p>
                 </Link>
               </td>
             </tr>
