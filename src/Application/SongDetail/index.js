@@ -11,15 +11,6 @@ import { BiDislike } from "react-icons/bi";
 function SongDetail() {
     const { sid } = useParams()
     const examplePlaylist = []
-
-    const exampleComments = [
-        { userId: 0, userName: "SampleUser 0 ", comment: "Test Comment 0" },
-        { userId: 1, userName: "SampleUser 1 ", comment: "Test Comment 1" },
-        { userId: 2, userName: "SampleUser 2 ", comment: "Test Comment 2 \n With Break" },
-        { userId: 3, userName: "SampleUser 3 ", comment: "Test Comment 3" },
-        { userId: 4, userName: "SampleUser 4 ", comment: "Test Comment 4" },
-        { userId: 5, userName: "SampleUser 5 ", comment: "Test Comment 5" },
-    ]
     const [songDetail, setSongDetail] = useState({})
     const [comments, setComents] = useState([])
     const fetchSongData = async () => {
@@ -40,7 +31,7 @@ function SongDetail() {
 
         <div className="wd-song-detail-holder">
             <div className="wd-song-detail container">
-                <div className="wd-song-detail-info d-flex pt-3">
+                {songDetail && <div className="wd-song-detail-info d-flex pt-3">
                     <img src={cover} />
                     <div className="wd-song-info ms-5">
                         <h4>{songDetail.title}</h4>
@@ -63,14 +54,14 @@ function SongDetail() {
                         <br />
                         <button className="btn btn-transparent mt-2"><BiLike className="me-2" /></button>
                     </div>
-                </div>
+                </div>}
                 <hr />
-                <div className="wd-song-lyrics">
+               {songDetail && <div className="wd-song-lyrics">
                     <h4>Lycris</h4>
                     {songDetail.lyrics && songDetail.lyrics.split('<br/>').map((line, index) => (
                         <p key={index}>{line}</p>
                     ))}
-                </div>
+                </div>}
                 <hr />
                 <div className="wd-song-comments">
                     <h4>Comments</h4>

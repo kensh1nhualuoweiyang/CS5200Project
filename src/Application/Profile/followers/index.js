@@ -1,17 +1,30 @@
 
 
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import "./index.css"
 import { FaRegUserCircle } from "react-icons/fa"
+import { useEffect, useState } from "react"
+import * as client from "../../client"
 function ProfileFollower(){
-    const sameple = ["name1","name2","name3"]
+    const {userName} = useParams()
+    const [followers,setFollowers] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await client.getFollower(userName)
+            setFollowers(response[0])
+        }
+        fetchData()
+    },[userName])
+
     return(
         <div className="wd-pFollower list-group mt-4">
+            {console.log(followers)}
             {
-                sameple.map((item) => (
+                followers.map((item) => (
                     <div className="list-group-item list-group-item-action">
                         <FaRegUserCircle/>
-                        <Link to={`/Application/Profile/${item}`} className="ms-5">{item}</Link>
+                        <Link to={`/Application/Profile/${item.userName}`} className="ms-5">{item.userName}</Link>
                     </div>
                 ))
             }   

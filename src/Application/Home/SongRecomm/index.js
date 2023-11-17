@@ -47,7 +47,7 @@ function SongRecomm() {
                                                                 {
                                                                    slides[index].slice(rowIndex * 3,(rowIndex + 1) * 3).map((item) => (
                                                                         <td className="col-3">
-                                                                            <Link to={`/Application/Songs/${item._id}`} className="d-flex">
+                                                                            <Link to={`/Application/Songs/${item.id}`} className="d-flex">
                                                                                 <div className="wd-songRec-image-container">
                                                                                     <img src={cover} alt="Cover" />
                                                                                     <AiFillPlayCircle />
@@ -79,7 +79,7 @@ function SongRecomm() {
 
             </div>
             <Routes>
-                <Route path="/Application/Songs/:sID" element={<SongDetail />} />
+                <Route path="/Application/Songs/:sid" element={<SongDetail />} />
             </Routes>
         </>
 

@@ -21,9 +21,9 @@ function Application(){
                 <Route path="Login" element={<Login/>}/>
                 <Route path="Songs/:sid/*" element={<SongDetail />} />
                 <Route path="Playlist/:pID" element={<Playlist />} />
-                <Route path="Profile/:uID/*" element={<Profile/>}/>
+                <Route path="Profile/:userName/*" element={<Profile/>}/>
                 <Route path="Genre/:gName/*" element={<GenreRec/>}/>
-                <Route path=":uID/:sID/creator" element = {<SongCreator/>}/>
+                <Route path=":userName/:sID/creator" element = {<SongCreator/>}/>
                 <Route path="Search/:keyword/*" element={<SearchResult/>}/> 
             </Routes>
         </div>

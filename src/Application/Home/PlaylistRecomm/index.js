@@ -37,7 +37,6 @@ function PlaylistRecomm() {
                                     
                                     <Link to={`/Application/Playlist/${item.id}`} className="wd-playlist-card card mx-3 mt-5"
                                         onClick={() => increaseView(item.id)}>
-                                            {console.log(slides[slideIndex])}
                                         <img src={coverImg} className="card-img-top" />
                                         <div className="card-body py-0 px-0">
                                             <h5 className="card-title mb-0">{item.name}</h5>

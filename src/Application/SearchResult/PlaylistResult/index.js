@@ -24,9 +24,9 @@ function PlaylistResult() {
                     result.map((item) => (
                         <li className="list-group-item list-group-item-action">
                             <img src={cover} />
-                            <Link to={`/Application/Playlist/${item._id}`} className="ms-5 me-5">{item.title}</Link>
-                            <Link to={`/Application/Profile/${item.author}`} className="ms-5 me-5">{item.author}</Link>
-                            <span className="me-5">View : {item.view}</span>
+                            <Link to={`/Application/Playlist/${item.id}`} className="ms-5 me-5" onClick={() => client.increasePlaylistView(item.id)}>{item.name}</Link>
+                            <Link to={`/Application/Profile/${item.userName}`} className="ms-5 me-5"onClick={() =>client.increasePlaylistView(item.id)}>{item.userName}</Link>
+                            <span className="me-5">View : {item.views}</span>
                          
                         </li>
                     ))

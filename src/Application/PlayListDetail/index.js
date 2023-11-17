@@ -7,16 +7,22 @@ import { useEffect } from "react"
 import { useState } from "react"
 function Playlist() {
     const { pID } = useParams()
+    const [songList, setSongList] = useState([])
     const [playlist, setPlaylist] = useState({})
+
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await client.getPlaylistDetail(pID)
-            setPlaylist(response)
+        const fetchSongList = async () => {
+            const response = await client.getPlaylistSongDetail(pID)
+            setSongList(response[0])
         }
-        fetchData()
-        console.log(playlist);
-    },[pID])
-  
+        const fetchPlaylist = async () => {
+            const response = await client.getPlaylistDetail(pID)
+            setPlaylist(response[0])
+        }
+        fetchSongList()
+        fetchPlaylist()
+    }, [pID])
+
     return (
         <div className="wd-playlist-detail-container">
             <div className="wd-playlist-detail container">
@@ -24,36 +30,33 @@ function Playlist() {
                     <img src={playlistCover} />
                     <div className="ms-5">
                         <h4>{playlist.title}</h4>
-                        <p>{playlist.author}</p>
-                        <p>Views: {playlist.view}</p>
-
+                        <p>Uploaded By: &nbsp; &nbsp; {playlist.userName}</p>
+                        <p>Views: {playlist.views}</p>
                         <h4>Description:</h4>
-
                         {playlist.description}
                     </div>
                 </div>
                 <hr />
                 <table className="table table-striped mt-3">
                     <tbody>
-                        {   
-                            
-                            playlist.songs && playlist.songs.map((item, index) => (
-                            <tr key={index} className="row">
-                                <td className="col-4">
-                                    <img src={cover} alt="Song Cover" />
-                                </td>
-                                <td className="col-3">
-                                    <Link to={`/Application/Songs/${item._id}`} className="d-flex">
-                                        <p className="me-5">{item.title}</p>
-                                    </Link>
-                                </td>
-                                <td className="col-3">
-                                    <Link to={`/Application/Profile/${item.aid}`}>
-                                        <p className="ms-2">{item.author}</p>
-                                    </Link>
-                                </td>
-                            </tr>
-                        ))}
+                        {
+                            songList && songList.map((item, index) => (
+                                <tr key={index} className="row">
+                                    <td className="col-4">
+                                        <img src={cover} alt="Song Cover" />
+                                    </td>
+                                    <td className="col-3">
+                                        <Link to={`/Application/Songs/${item.id}`} className="d-flex">
+                                            <p className="me-5">{item.title}</p>
+                                        </Link>
+                                    </td>
+                                    <td className="col-3">
+                                        <Link to={`/Application/Profile/${item.userName}`}>
+                                            <p className="ms-2">{item.userName}</p>
+                                        </Link>
+                                    </td>
+                                </tr>
+                            ))}
                     </tbody>
                 </table>
             </div>

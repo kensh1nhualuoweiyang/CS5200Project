@@ -24,7 +24,7 @@ function UserResult() {
                 {
                     result.map((item) => (
                         <div className="list-group-item list-group-item-action">
-                            <Link id="user" to={`/Application/Profile/${item._id}`} className="ms-5">
+                            <Link id="user" to={`/Application/Profile/${item.userName}`} className="ms-5">
                                 <FaRegUserCircle className="me-5" />
                                 <span>{item.userName}</span>
                             </Link>
