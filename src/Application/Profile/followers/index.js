@@ -12,7 +12,7 @@ function ProfileFollower(){
     useEffect(() => {
         const fetchData = async () => {
             const response = await client.getFollower(userName)
-            setFollowers(response[0])
+            setFollowers(response)
         }
         fetchData()
     },[userName])
@@ -21,10 +21,11 @@ function ProfileFollower(){
         <div className="wd-pFollower list-group mt-4">
             {console.log(followers)}
             {
-                followers.map((item) => (
+                
+                followers && followers.map((item) => (
                     <div className="list-group-item list-group-item-action">
                         <FaRegUserCircle/>
-                        <Link to={`/Application/Profile/${item.userName}`} className="ms-5">{item.userName}</Link>
+                        <Link to={`/Application/Profile/${item.follower}`} className="ms-5">{item.follower}</Link>
                     </div>
                 ))
             }   

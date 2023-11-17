@@ -11,24 +11,19 @@ function Login() {
     const navigate = useNavigate();
 
     const login = async () => {
-        const response = await client.userLogin(username, password);
-        if (response.data === "Login Success") {
-         
-            const userCookie = Cookies.get('user');
-            if (userCookie) {
-                const userData = JSON.parse(userCookie);
-                navigate(`/Application/Profile/${userData._id}`);
-            } else {
-                setError("User cookie not found");
-            }
-        } else {
-            setError(response.data);
+        try{
+            const response = await client.userLogin(username, password);
+            navigate(`/Application/Profile/${response.data[0].userName}`);
         }
+        catch(error){
+            setError(error.response.data.error)
+        }
+       
     };
 
     return (
         <div className="wd-login-content">
-            {error && <p className="wd-login-error-msg">{error}</p>}
+            {error && <p className="alert alert-danger">{error}</p>}
             <div className="wd-login-form">
                 <h4>Login</h4>
                 <label htmlFor="username" className="form-label mt-4">

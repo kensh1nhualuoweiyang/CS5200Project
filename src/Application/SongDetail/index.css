@@ -25,6 +25,13 @@
     align-items: right;
     text-align: right;
 }
+.wd-comment-date button{
+    width: 45px;
+    height: 30px;
+    padding: 0;
+    font-size: small;
+}
+
 .wd-song-comments ul li{
     background-color: transparent;
     border-left: none;

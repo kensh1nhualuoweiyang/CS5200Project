@@ -6,13 +6,20 @@ import * as client from "../../client"
 function ProfileSongs() {
     const { userName } = useParams();
     const [songs, setSongs] = useState([])
+    const [user,setUser] = useState(null)
+    const fetchUser = async () =>{
+        const response = await client.getCurrentUser()
+        setUser(response)
+    }
+
     const fetchUserSongs = async () => {
         const response = await client.getSongCreated(userName)
         setSongs(response)
     }
-  
+   
     useEffect(() => {
         fetchUserSongs()
+        fetchUser()
     }, [userName])
 
     const handleDelete = async (id) => {
@@ -20,6 +27,8 @@ function ProfileSongs() {
         const newSongs = songs.filter((item) => item.id !== id)
         setSongs(newSongs)
     }
+
+
 
     return (
         <div className="container mt-3">
@@ -35,17 +44,17 @@ function ProfileSongs() {
                                 <Link className="wd-profile-songs" key={item} to={`/Application/Songs/${item.id}`} >
                                     {item.title}
                                 </Link>
-                                <div className="float-end">
+                               {user && user === userName && <div className="float-end">
                                     <Link className="btn btn-primary me-3" to={`/Application/${userName}/${item.id}/creator`}>Edit</Link>
                                     <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>Delete</button>
-                                </div>
+                                </div>}
                             </div>
                         ))
                     )
                 }
 
             </div>
-            <Link to={`/Application/${userName}/newSong/creator`} className="float-end btn btn-primary mt-2">Create</Link>
+           {user && user === userName && <Link to={`/Application/${userName}/newSong/creator`} className="float-end btn btn-primary mt-2">Create</Link>}
         </div>
     );
 }

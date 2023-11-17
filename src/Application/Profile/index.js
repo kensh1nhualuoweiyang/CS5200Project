@@ -13,29 +13,64 @@ function Profile() {
     const { pathname } = useLocation();
     const { userName } = useParams();
 
-    const [user,setUser] = useState({})
-    
+    const [user, setUser] = useState({})
+    const fetchUserInfo = async () => {
+        const response = await client.getBasicUserInfo(userName);
+        setUser(response[0][0])
+    }
+    const [currentUser, setCurrentUser] = useState(null)
+    const [following, setFollowing] = useState([])
+
+
+  
     useEffect(() => {
-        const fetchUserInfo = async () =>{
-            const response = await client.getBasicUserInfo(userName);
-            setUser(response[0][0])
-        }
+        fetchUser()
         fetchUserInfo()
-    },[userName])
+        fetchFollowing()
+    }, [userName])
+
+
+
+    const fetchUser = async () => {
+        const response = await client.getCurrentUser()
+        setCurrentUser(response)
+    }
+
+    const fetchFollowing = async () => {
+        const response = await client.getSelfFollowing()
+        console.log(response);
+        setFollowing(response)
+    }
+
+    const handleFollow = async () => {
+        const response = await client.follow(userName)
+        setFollowing([...following, {userName:userName}]);
+        fetchUserInfo()
+    }
+
+    const handleUnfollow = async () => {
+        const response = await client.unfollow(userName)
+        const newFollowing = following.filter((item) =>  item.userName !== userName)
+        fetchUserInfo()
+        setFollowing(newFollowing)
+        
+    }
+
     return (
         <div className="wd-profile">
             <div className="wd-profile-header">
 
                 <FaRegUserCircle />
                 <h3 className="mt-2 wd-profile-user-name">{user.userName}</h3>
-                <button className="btn btn-secondary">Follow</button>
+                {currentUser && currentUser !== userName && !following.some(item => item.userName === userName) && <button className="btn btn-secondary " onClick={handleFollow}>Follow</button>}
+                {currentUser && currentUser !== userName &&  following.some(item => item.userName === userName) && <button className="btn btn-secondary" onClick={handleUnfollow}>Unfollow</button>}
                 <div className="d-flex wd-profile-header-followInfo">
                     <p>Followers: {user.fansCount}</p>
                     <p>Follwing: {user.followingCount}</p>
                 </div>
             </div>
             <div className="wd-profile-body">
-               
+
                 <div className="wd-profile-main-nav">
                     <ul className="nav nav-tabs">
                         {
@@ -49,11 +84,11 @@ function Profile() {
                     </ul>
                 </div>
                 <Routes>
-                    <Route path="/" element={<Navigate to={"My Songs"}/>} />
+                    <Route path="/" element={<Navigate to={"My Songs"} />} />
                     <Route path="My Songs" element={<ProfileSongs />} />
-                    <Route path="My Playlist" element={<ProfilePlaylist/>}/>
-                    <Route path="Followers" element={<ProfileFollower/>}/>
-                    <Route path="Followings" element={<ProfileFollowing/>}/>
+                    <Route path="My Playlist" element={<ProfilePlaylist />} />
+                    <Route path="Followers" element={<ProfileFollower />} />
+                    <Route path="Followings" element={<ProfileFollowing updateMethod = {fetchUserInfo} />} />
                 </Routes>
             </div>
 

@@ -2,8 +2,38 @@ import axios from "axios"
 const baseUrl = "http://localhost:4000/api"
 
 
+export const getCurrentUser = async () => {
+    const response = await axios.get(`${baseUrl}/currentUser`)
+    return response.data
+}
+export const logOut = async () => {
+    const response = await axios.put(`${baseUrl}/logOut`)
+    return response
+}
+
+export const follow = async (user) => {
+    const response = await axios.put(`${baseUrl}/follow/${user}`)
+    return response
+}
+
+export const unfollow = async (user) => {
+    const response = await axios.delete(`${baseUrl}/unfollow/${user}`)
+    return response
+}
+
+
+export const register = async (item) =>{
+    const response = await axios.post(`${baseUrl}/register`,item)
+    return response
+}
+
 export const getFollower = async (name) => {
     const response = await axios.get(`${baseUrl}/follower/${name}`)
+    return response.data
+}
+
+export const getSelfFollowing = async () =>{
+    const response = await axios.get(`${baseUrl}/selfFollow`)
     return response.data
 }
 
@@ -13,6 +43,7 @@ export const getPlaylistCreated = async (name) => {
 }
 
 export const getFollowing = async (name) => {
+    console.log(name);
     const response = await axios.get(`${baseUrl}/following/${name}`)
     return response.data
 }
@@ -32,9 +63,37 @@ export const createNewPlaylist = async(item) =>{
     return response
 }
 
+export const addToPlaylist = async(pid,sid) => {
+    const response = await axios.put(`${baseUrl}/addToPlaylist/${pid}/${sid}`)
+    return response
+}
+
+export const likeSong = async (sid)=>{
+    const response = await axios.put(`${baseUrl}/likeSong/${sid}`)
+    return response
+}
+export const getLikeSongs = async ()=>{
+    const response = await axios.get(`${baseUrl}/likeSong`)
+    return response.data
+}
+export const deletePlaylistSong = async (item)=>{
+    const response = await axios.delete(`${baseUrl}/playlistSong`,{data:item})
+    return response.data
+}
+
+export const deleteComment = async (cid) =>{
+    const response = await axios.delete(`${baseUrl}/songComment/${cid}`)
+    return response
+}
 
 export const updateSong = async(item) => {
     const response = await axios.put(`${baseUrl}/songUpdate`,item)
+    return response
+}
+
+export const postComment = async(item) =>{
+    console.log(item);
+    const response = await axios.post(`${baseUrl}/songComment`,item)
     return response
 }
 
@@ -120,5 +179,6 @@ export const getSongComments = async (id) =>{
 
 export const userLogin = async (userName, passWord) => {
     const response = await axios.post(`${baseUrl}/login?userName=${userName}&password=${passWord}`)
+    console.log(response);
     return response
 }

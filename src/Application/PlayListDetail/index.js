@@ -9,7 +9,11 @@ function Playlist() {
     const { pID } = useParams()
     const [songList, setSongList] = useState([])
     const [playlist, setPlaylist] = useState({})
-
+    const [user, setUser] = useState()
+    const fetchUser = async () => {
+        const response = await client.getCurrentUser()
+        setUser(response)
+    }
     useEffect(() => {
         const fetchSongList = async () => {
             const response = await client.getPlaylistSongDetail(pID)
@@ -19,9 +23,16 @@ function Playlist() {
             const response = await client.getPlaylistDetail(pID)
             setPlaylist(response[0])
         }
+        fetchUser()
         fetchSongList()
         fetchPlaylist()
     }, [pID])
+
+    const handleDelete = async (pid, id) => {
+        await client.deletePlaylistSong({ pid, id })
+        const newSonglist = songList.filter((item) => item.id != id)
+        setSongList(newSonglist)
+    }
 
     return (
         <div className="wd-playlist-detail-container">
@@ -42,7 +53,10 @@ function Playlist() {
                         {
                             songList && songList.map((item, index) => (
                                 <tr key={index} className="row">
-                                    <td className="col-4">
+                                    {user && user === playlist.userName && <td className="col-1">
+                                        <button className="btn btn-secondary" onClick={() => handleDelete(playlist.id,item.id)}>Delete</button>
+                                    </td>}
+                                    <td className="col-3">
                                         <img src={cover} alt="Song Cover" />
                                     </td>
                                     <td className="col-3">
