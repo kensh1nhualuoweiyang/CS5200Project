@@ -8,7 +8,6 @@ import * as client from "../../client"
 function SongResult() {
 
   
-    const examplePlaylist = []
     const {keyword} = useParams()
     const [result,setResult] = useState([])
 
@@ -35,17 +34,7 @@ function SongResult() {
                                 <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Add to Playlist
                                 </button>
-                                <ul className="dropdown-menu">
-                                    {
-                                        //Fix user
-                                        examplePlaylist.length >= 1 ?
-                                        examplePlaylist.map((item) => (
-                                            <li><button type="button" className="dropdown-item" >{item}</button></li>
-                                        )):
-                                        <li className="ms-3">No Playlist Found</li>
-                                    }
-                                    
-                                </ul>
+                              
                             </div>
                         </li>
 
