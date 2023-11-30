@@ -24,8 +24,7 @@ function ProfileSongs() {
 
     const handleDelete = async (id) => {
         const response = await client.deleteSong(id)
-        const newSongs = songs.filter((item) => item.id !== id)
-        setSongs(newSongs)
+        fetchUserSongs()
     }
 
 

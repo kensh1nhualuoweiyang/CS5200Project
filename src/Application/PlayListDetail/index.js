@@ -14,15 +14,17 @@ function Playlist() {
         const response = await client.getCurrentUser()
         setUser(response)
     }
+    const fetchPlaylist = async () => {
+        const response = await client.getPlaylistDetail(pID)
+        setPlaylist(response[0])
+    }
+    const fetchSongList = async () => {
+        const response = await client.getPlaylistSongDetail(pID)
+        setSongList(response[0])
+    }
     useEffect(() => {
-        const fetchSongList = async () => {
-            const response = await client.getPlaylistSongDetail(pID)
-            setSongList(response[0])
-        }
-        const fetchPlaylist = async () => {
-            const response = await client.getPlaylistDetail(pID)
-            setPlaylist(response[0])
-        }
+
+
         fetchUser()
         fetchSongList()
         fetchPlaylist()
@@ -36,7 +38,7 @@ function Playlist() {
 
     return (
         <div className="wd-playlist-detail-container">
-            <div className="wd-playlist-detail container">
+            {playlist && <div className="wd-playlist-detail container">
                 <div className="wd-playlist-detail-info d-flex pt-3 ">
                     <img src={playlistCover} />
                     <div className="ms-5">
@@ -54,7 +56,7 @@ function Playlist() {
                             songList && songList.map((item, index) => (
                                 <tr key={index} className="row">
                                     {user && user === playlist.userName && <td className="col-1">
-                                        <button className="btn btn-secondary" onClick={() => handleDelete(playlist.id,item.id)}>Delete</button>
+                                        <button className="btn btn-secondary" onClick={() => handleDelete(playlist.id, item.id)}>Delete</button>
                                     </td>}
                                     <td className="col-3">
                                         <img src={cover} alt="Song Cover" />
@@ -73,7 +75,7 @@ function Playlist() {
                             ))}
                     </tbody>
                 </table>
-            </div>
+            </div>}
         </div>
 
     )

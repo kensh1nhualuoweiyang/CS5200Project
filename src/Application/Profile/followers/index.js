@@ -9,11 +9,12 @@ function ProfileFollower(){
     const {userName} = useParams()
     const [followers,setFollowers] = useState([])
 
+    const fetchData = async () => {
+        const response = await client.getFollower(userName)
+        setFollowers(response)
+    }
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await client.getFollower(userName)
-            setFollowers(response)
-        }
+        
         fetchData()
     },[userName])
 

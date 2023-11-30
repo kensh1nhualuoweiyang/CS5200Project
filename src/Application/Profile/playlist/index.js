@@ -26,19 +26,15 @@ function ProfilePlaylist() {
     }, [userName])
 
     const handleDelete = async (id) => {
-        const response = await client.deletePlaylist(id)
-        const newPlaylist = playlist.filter((item) => item.id !== id)
-        setPlaylist(newPlaylist)
+        await client.deletePlaylist(id)
+        fetchData()
     }
 
     const handleCreate = async () => {
         try {
-            const response = await client.createNewPlaylist(newPlaylist);
-            console.log(response);
-            const updatedPlaylist = [...playlist, { ...newPlaylist, id: response.id }];
-            setPlaylist(updatedPlaylist);
-
-            setNewPlaylist({ public: true });
+            await client.createNewPlaylist(newPlaylist);
+            fetchData()
+            setNewPlaylist({ public: true,name:"",description:"" });
         } catch (err) {
             setError(err.response.data.error);
         }

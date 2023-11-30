@@ -51,7 +51,7 @@ function SongDetail() {
 
     const handleDelete = async (cid) => {
         await client.deleteComment(cid)
-        const newComments = comments.filter((item) =>cid !=item.cid )
+        const newComments = comments.filter((item) =>cid != item.cid )
         setComents(newComments)
     }
 

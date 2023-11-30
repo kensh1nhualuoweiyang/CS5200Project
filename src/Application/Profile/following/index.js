@@ -14,19 +14,18 @@ function ProfileFollowing({updateMethod}) {
     const [followings,setFollowings] = useState([])
 
 
-    
+    const fetchData = async () => {
+        const response = await client.getFollowing(userName)
+        setFollowings(response)
+    }
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await client.getFollowing(userName)
-            setFollowings(response)
-        }
+       
         fetchData()
     },[userName])
 
     const handleUnfollow = async (name) =>{
-        const response = await client.unfollow(name)
-        const newFollowing = followings.filter((item) => item.userName != name)
-        setFollowings(newFollowing)
+        await client.unfollow(name)
+        fetchData()
         updateMethod()
     }
 
