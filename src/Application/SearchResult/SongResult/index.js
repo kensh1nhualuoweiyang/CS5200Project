@@ -30,12 +30,6 @@ function SongResult() {
                             <Link to={`/Application/Songs/${item.id}`} className="ms-5 me-5">{item.title}</Link>
                             <Link to={`/Application/Profile/${item.userName}`} className="ms-5 me-5">{item.userName}</Link>
                             <span className="me-5">Likes : {item.likes}</span>
-                            <div className="btn-group ms-5">
-                                <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Add to Playlist
-                                </button>
-                              
-                            </div>
                         </li>
 
                     ))

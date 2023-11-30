@@ -45,12 +45,12 @@ function SongDetail() {
             detail: detail, userName: user, commentDate: new Date().toISOString().slice(0, 19).replace('T', ' '), sid: sid
         }
         setDetail("")
-        const response = await client.postComment(commentData)
+        await client.postComment(commentData)
         fetchSongComment()
     }
 
     const handleDelete = async (cid) => {
-        const response = await client.deleteComment(cid)
+        await client.deleteComment(cid)
         const newComments = comments.filter((item) =>cid !=item.cid )
         setComents(newComments)
     }
@@ -63,12 +63,12 @@ function SongDetail() {
     }, [sid])
 
     const handleAdd = async (pid, sid) => {
-        const response = await client.addToPlaylist(pid, sid)
+        await client.addToPlaylist(pid, sid)
     }
     const handleLike = async () => {
-        if (!like.includes(sid)) {
-            const response = await client.likeSong(sid)
-            setLike([...like, sid])
+        if (!like.some((item) => item.id.toString() === sid)) {
+            await client.likeSong(sid)
+            fetchLike()
             setSongDetail({ ...songDetail, likes: songDetail.likes + 1 })
         }
 
